@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAXAK INSTITUTE OF TECHNOLOGY - ADMISSION PORTAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Stop page reload
+
+            // 1. Gather the data from the form fields
+            const formData = new FormData(event.target);
+            const currentData = Object.fromEntries(formData.entries());
+
+            // 2. Retrieve existing applications from localStorage, or start an empty list
+            const existingApplications = JSON.parse(localStorage.getItem("admissions")) || [];
+
+            // 3. Add the new form submission to our list
+            existingApplications.push(currentData);
+
+            // 4. Save the updated list back to localStorage (must be turned into a text string)
+            localStorage.setItem("admissions", JSON.stringify(existingApplications));
+
+            alert("Application saved locally! Check your console to see everything stored.");
+
+            // 5. Let's print out everything currently stored so you can see it
+            console.log("All Stored Applications:", existingApplications);
+
+            // Optional: Reset the form fields for the next entry
+            event.target.reset();
+        }
+    </script>
+    <style>
+        /* Modern Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Form Container Card */
+        .portal-container {
+            background: #ffffff;
+            max-width: 750px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+            color: #e0e6ed;
+            font-weight: 400;
+        }
+
+        /* Form Body Layout */
+        form {
+            padding: 40px;
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1e3c72;
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eef2f5;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Grid Layout for Form Rows */
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Row configuration for side-by-side elements */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Input Controls */
+        label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            background-color: #fdfdfd;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2a5298;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Custom Radio Group formatting */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            height: 45px;
+            /* aligns roughly with standard text fields */
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            accent-color: #2a5298;
+            /* Modern color adaptation for checkboxes/radios */
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Submission Button Styling */
+        .submit-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 25px;
+            transition: transform 0.1s ease, opacity 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.95;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Responsive Breakpoint for Mobile Devices */
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            form {
+                padding: 20px;
+            }
+        }
+    </style>
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Stop page from refreshing and giving an error
+
+            // 1. Gather all the data from the form fields
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // 2. Format the data into a readable text string
+            let fileContent = "=== NEW ADMISSION REGISTRATION ===\n";
+            for (const [key, value] of Object.entries(data)) {
+                fileContent += `${key.toUpperCase()}: ${value}\n`;
+            }
+            fileContent += "==================================\n\n";
+
+            // 3. Create a "Blob" (a virtual file) out of our text content
+            const blob = new Blob([fileContent], { type: "text/plain" });
+
+            // 4. Create a temporary invisible download link in the background
+            const downloadLink = document.createElement("a");
+
+            // Set the file name to 'database.txt'
+            downloadLink.download = "database.txt";
+
+            // Link the virtual file to the download link
+            downloadLink.url = window.URL.createObjectURL(blob);
+            downloadLink.href = downloadLink.url;
+
+            // 5. Programmatically click the link to trigger the download prompt
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+            // 6. Clean up by removing the temporary link from the page
+            document.body.removeChild(downloadLink);
+            window.URL.revokeObjectURL(downloadLink.url);
+
+            alert("Success! Check your Downloads folder for 'database.txt'.");
+            event.target.reset(); // Clear the form for the next entry
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="portal-container">
+        <header>
+            <h1>Online Admission Registration Form 2026-27</h1>
+            <p class="welcome-text">Welcome to the Online Admission Portal. Please fill in all required fields
+                accurately for verification.</p>
+        </header>
+
+        <form onsubmit="handleFormSubmit(event)">
+
+            <h3 class="section-title">Personal Information</h3>
+
+            <div class="form-group">
+                <label for="username">APPLICANT'S NAME</label>
+                <input type="text" id="username" name="username" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="father">FATHER'S NAME</label>
+                    <input type="text" id="father" name="father" placeholder="Enter father's name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mother">MOTHER'S NAME</label>
+                    <input type="text" id="mother" name="mother" placeholder="Enter mother's name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">DATE OF BIRTH</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label>GENDER</label>
+                    <div class="radio-group">
+                        <label class="radio-label" for="male">
+                            <input type="radio" id="male" name="gender" value="MALE" required> MALE
+                        </label>
+                        <label class="radio-label" for="female">
+                            <input type="radio" id="female" name="gender" value="FEMALE"> FEMALE
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">Contact Details</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">MOBILE NUMBER</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g. 9876543210" pattern="[0-9]{10}"
+                        maxlength="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-MAIL ADDRESS</label>
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">HOME ADDRESS</label>
+                <textarea id="address" name="address" placeholder="Enter your complete residential address"
+                    required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">CITY</label>
+                    <input type="text" id="city" name="city" placeholder="Enter city" required>
+                </div>
+                <div class="form-group">
+                    <label for="pin">PINCODE</label>
+                    <input type="tel" id="pin" name="pin" placeholder="6-digit PIN" pattern="[0-9]{6}" maxlength="6"
+                        required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
